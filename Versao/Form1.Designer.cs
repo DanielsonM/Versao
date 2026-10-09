@@ -41,6 +41,7 @@
             btnFecha = new Button();
             ckbFecharAposUpdate = new CheckBox();
             btnAtualizar = new Button();
+            btnSalvar = new Button();
             ((System.ComponentModel.ISupportInitialize)numNovaVersao).BeginInit();
             SuspendLayout();
             // 
@@ -56,7 +57,7 @@
             // 
             // txtBanco
             // 
-            txtBanco.BackColor = SystemColors.Menu;
+            txtBanco.BackColor = SystemColors.HighlightText;
             txtBanco.BorderStyle = BorderStyle.FixedSingle;
             txtBanco.Location = new Point(83, 80);
             txtBanco.Name = "txtBanco";
@@ -128,7 +129,7 @@
             // 
             // btnFecha
             // 
-            btnFecha.Location = new Point(129, 165);
+            btnFecha.Location = new Point(141, 165);
             btnFecha.Name = "btnFecha";
             btnFecha.Size = new Size(118, 23);
             btnFecha.TabIndex = 11;
@@ -157,11 +158,22 @@
             btnAtualizar.UseVisualStyleBackColor = true;
             btnAtualizar.Click += btnAtualizar_Click;
             // 
+            // btnSalvar
+            // 
+            btnSalvar.Location = new Point(304, 120);
+            btnSalvar.Name = "btnSalvar";
+            btnSalvar.Size = new Size(76, 23);
+            btnSalvar.TabIndex = 13;
+            btnSalvar.Text = "Salvar";
+            btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click_1;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(392, 202);
+            Controls.Add(btnSalvar);
             Controls.Add(ckbFecharAposUpdate);
             Controls.Add(btnFecha);
             Controls.Add(label4);
@@ -197,5 +209,6 @@
         private Button btnFecha;
         private CheckBox ckbFecharAposUpdate;
         private Button btnAtualizar;
+        private Button btnSalvar;
     }
 }

@@ -18,6 +18,7 @@ namespace Versao
         }
 
         public string? strCaminhoBanco { get; set; }
+
         #region Métodos
 
         public void CarregarXml()
@@ -98,6 +99,8 @@ namespace Versao
 
             MessageBox.Show("Versão atualizada com sucesso.");
 
+            this.CarregarDados();
+
             if (this.ckbFecharAposUpdate.Checked)
                 this.Close();
         }
@@ -115,6 +118,7 @@ namespace Versao
                 form.ShowDialog();
             }
         }
+
         private string? getVersaoAtual()
         {
             string strSql = @"SELECT versao.valor
@@ -189,6 +193,18 @@ namespace Versao
             }
         }
 
+        private void btnSalvar_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                this.SalvarXml(this.txtBanco.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void btnSelecionarbanco_Click(object sender, EventArgs e)
         {
             try
@@ -203,8 +219,16 @@ namespace Versao
 
         private void ckbFecharAposUpdate_CheckStateChanged(object sender, EventArgs e)
         {
-            this.SalvarXml(this.txtBanco.Text);
+            try
+            {
+                this.SalvarXml(this.txtBanco.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
+
         #endregion Eventos
     }
 }
