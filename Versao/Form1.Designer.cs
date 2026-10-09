@@ -32,7 +32,6 @@
             btnSelecionarbanco = new Button();
             txtBanco = new TextBox();
             numNovaVersao = new NumericUpDown();
-            btnAtualizar = new Button();
             txtVersaoAtual = new TextBox();
             label1 = new Label();
             label2 = new Label();
@@ -41,6 +40,11 @@
             label4 = new Label();
             btnFecha = new Button();
             ckbFecharAposUpdate = new CheckBox();
+            btnAtualizar = new Button();
+            btnSalvar = new Button();
+            label5 = new Label();
+            textBox1 = new TextBox();
+            btnSelecionar2 = new Button();
             ((System.ComponentModel.ISupportInitialize)numNovaVersao).BeginInit();
             SuspendLayout();
             // 
@@ -60,7 +64,6 @@
             txtBanco.BorderStyle = BorderStyle.FixedSingle;
             txtBanco.Location = new Point(83, 80);
             txtBanco.Name = "txtBanco";
-            txtBanco.ReadOnly = true;
             txtBanco.Size = new Size(215, 23);
             txtBanco.TabIndex = 2;
             // 
@@ -71,16 +74,6 @@
             numNovaVersao.Name = "numNovaVersao";
             numNovaVersao.Size = new Size(120, 23);
             numNovaVersao.TabIndex = 0;
-            // 
-            // btnAtualizar
-            // 
-            btnAtualizar.Location = new Point(169, 109);
-            btnAtualizar.Name = "btnAtualizar";
-            btnAtualizar.Size = new Size(118, 23);
-            btnAtualizar.TabIndex = 3;
-            btnAtualizar.Text = "Atualizar";
-            btnAtualizar.UseVisualStyleBackColor = true;
-            btnAtualizar.Click += btnAtualizar_Click;
             // 
             // txtVersaoAtual
             // 
@@ -123,7 +116,7 @@
             // 
             txtPorta.BackColor = SystemColors.ButtonHighlight;
             txtPorta.BorderStyle = BorderStyle.FixedSingle;
-            txtPorta.Location = new Point(83, 109);
+            txtPorta.Location = new Point(83, 140);
             txtPorta.Name = "txtPorta";
             txtPorta.Size = new Size(80, 23);
             txtPorta.TabIndex = 8;
@@ -131,7 +124,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(42, 113);
+            label4.Location = new Point(42, 144);
             label4.Name = "label4";
             label4.Size = new Size(38, 15);
             label4.TabIndex = 9;
@@ -139,7 +132,7 @@
             // 
             // btnFecha
             // 
-            btnFecha.Location = new Point(129, 152);
+            btnFecha.Location = new Point(129, 183);
             btnFecha.Name = "btnFecha";
             btnFecha.Size = new Size(118, 23);
             btnFecha.TabIndex = 11;
@@ -158,11 +151,62 @@
             ckbFecharAposUpdate.UseVisualStyleBackColor = true;
             ckbFecharAposUpdate.CheckStateChanged += ckbFecharAposUpdate_CheckStateChanged;
             // 
+            // btnAtualizar
+            // 
+            btnAtualizar.Location = new Point(169, 140);
+            btnAtualizar.Name = "btnAtualizar";
+            btnAtualizar.Size = new Size(118, 23);
+            btnAtualizar.TabIndex = 3;
+            btnAtualizar.Text = "Atualizar";
+            btnAtualizar.UseVisualStyleBackColor = true;
+            btnAtualizar.Click += btnAtualizar_Click;
+            // 
+            // btnSalvar
+            // 
+            btnSalvar.Location = new Point(304, 138);
+            btnSalvar.Name = "btnSalvar";
+            btnSalvar.Size = new Size(76, 23);
+            btnSalvar.TabIndex = 13;
+            btnSalvar.Text = "&Salvar";
+            btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(28, 114);
+            label5.Name = "label5";
+            label5.Size = new Size(52, 15);
+            label5.TabIndex = 15;
+            label5.Text = "Banco 2:";
+            // 
+            // textBox1
+            // 
+            textBox1.BackColor = SystemColors.Menu;
+            textBox1.BorderStyle = BorderStyle.FixedSingle;
+            textBox1.Location = new Point(83, 111);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(215, 23);
+            textBox1.TabIndex = 14;
+            // 
+            // btnSelecionar2
+            // 
+            btnSelecionar2.Location = new Point(304, 111);
+            btnSelecionar2.Name = "btnSelecionar2";
+            btnSelecionar2.Size = new Size(76, 23);
+            btnSelecionar2.TabIndex = 16;
+            btnSelecionar2.Text = "Selecionar";
+            btnSelecionar2.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(392, 186);
+            ClientSize = new Size(392, 242);
+            Controls.Add(btnSelecionar2);
+            Controls.Add(label5);
+            Controls.Add(textBox1);
+            Controls.Add(btnSalvar);
             Controls.Add(ckbFecharAposUpdate);
             Controls.Add(btnFecha);
             Controls.Add(label4);
@@ -189,7 +233,6 @@
         private Button btnSelecionarbanco;
         private TextBox txtBanco;
         private NumericUpDown numNovaVersao;
-        private Button btnAtualizar;
         private TextBox txtVersaoAtual;
         private Label label1;
         private Label label2;
@@ -198,5 +241,10 @@
         private Label label4;
         private Button btnFecha;
         private CheckBox ckbFecharAposUpdate;
+        private Button btnAtualizar;
+        private Button btnSalvar;
+        private Label label5;
+        private TextBox textBox1;
+        private Button btnSelecionar2;
     }
 }

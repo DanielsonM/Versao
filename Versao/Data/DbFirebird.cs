@@ -66,6 +66,22 @@ namespace Versao.Data
             }
         }
 
+        public int ExecutarComando(string sql, string connStr, params FbParameter[] parametros)
+        {
+            using (FbConnection conn = new FbConnection(connStr))
+            {
+                conn.Open();
+                using (FbCommand cmd = new FbCommand(sql, conn))
+                {
+                    if (parametros != null)
+                        cmd.Parameters.AddRange(parametros);
+
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
         // Exemplo de SELECT síncrono (se precisar)
         public DataTable ExecutarSelect(string sql, params FbParameter[] parametros)
         {

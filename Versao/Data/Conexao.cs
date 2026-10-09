@@ -1,36 +1,52 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
 
-namespace Versao.Data
+internal class Conexao
 {
-    internal class Conexao
+    public string? connectionString;
+
+    private static  Conexao _i;
+
+    public static Conexao i
     {
-        public string? connectionString;
-        public string? porta;
-
-        private static Conexao? _i;
-
-        public static Conexao i
+        get
         {
-            get
-            {
-                if(_i == null)
-                    return _i = new Conexao();
+            if (_i == null)
+                return _i = new Conexao();
 
-                return _i;
-            }
-            set
+            return _i;
+        }
+        set
+        {
+            _i = value;
+        }
+    }
+
+    public Conexao(string conn)
+    {
+        connectionString = conn;
+    }
+
+    public Conexao()
+    {
+    }
+
+    public void AbrirConexao()
+    {
+        using (FbConnection conn = new FbConnection(connectionString))
+        {
+            conn.Open();
+        }
+    }
+
+    public void ExecutarComando(string sql)
+    {
+        using (FbConnection conn = new FbConnection(connectionString))
+        {
+            conn.Open();
+            using (FbCommand cmd = new FbCommand(sql, conn))
             {
-                _i = value;
+                cmd.ExecuteNonQuery();
             }
         }
-
-        public void AbrirConexao()
-        {
-            using (FbConnection conn = new FbConnection(connectionString))
-            {
-                conn.Open();
-            }
-        }
-
     }
 }

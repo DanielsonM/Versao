@@ -9,11 +9,15 @@ namespace Versao
         public Form1()
         {
             InitializeComponent();
-            this.CarregarXml();
+            this.CarregarDados();
         }
 
-        public string strCaminhoBanco { get; set; }
+        public Form1(string str)
+        {
+            InitializeComponent();
+        }
 
+        public string? strCaminhoBanco { get; set; }
         #region Métodos
 
         public void CarregarXml()
@@ -98,6 +102,19 @@ namespace Versao
                 this.Close();
         }
 
+        private void CarregarDados()
+        {
+            try
+            {
+                this.CarregarXml();
+            }
+            catch
+            {
+                Form1 form = new Form1(string.Empty);
+
+                form.ShowDialog();
+            }
+        }
         private string? getVersaoAtual()
         {
             string strSql = @"SELECT versao.valor
@@ -115,6 +132,7 @@ namespace Versao
 
             return strResultado;
         }
+
         private void SalvarXml(string caminhoBanco)
         {
             XElement xml = new XElement("Configuracao",
@@ -155,6 +173,22 @@ namespace Versao
             }
         }
 
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.SalvarXml(this.txtBanco.Text);
+
+                MessageBox.Show("Configuração salva com sucesso");
+
+                this.CarregarDados();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void btnSelecionarbanco_Click(object sender, EventArgs e)
         {
             try
@@ -166,11 +200,11 @@ namespace Versao
                 MessageBox.Show(ex.Message);
             }
         }
+
         private void ckbFecharAposUpdate_CheckStateChanged(object sender, EventArgs e)
         {
             this.SalvarXml(this.txtBanco.Text);
         }
-
         #endregion Eventos
     }
 }
