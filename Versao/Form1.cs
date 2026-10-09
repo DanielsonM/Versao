@@ -25,31 +25,34 @@ namespace Versao
                 string? porta = xml.Element("Port")?.Value;
                 string? automaticClose = xml.Element("AutomaticSave")?.Value;
 
-                Conexao.i.connectionString = $@"Server=localhost;Port={porta};User=SYSDBA;Password=masterkey;Database={caminhoBanco}";
+                if (string.IsNullOrEmpty(this.txtPorta.Text))
+                {
+                    this.txtPorta.Text = "3025";
+                    DbFirebird.i.strPort = "3025";
+                }
+
+                if (!string.IsNullOrEmpty(porta))
+                {
+                    Conexao.i.connectionString = $@"Server=localhost;Port={porta};User=SYSDBA;Password=masterkey;Database={caminhoBanco}";
+                    this.txtVersaoAtual.Text = this.getVersaoAtual();
+                }
+
                 this.txtBanco.Text = caminhoBanco;
-                this.txtVersaoAtual.Text = this.getVersaoAtual();
-                this.numNovaVersao.Value = int.Parse(this.txtVersaoAtual.Text);
+
+                if (!string.IsNullOrEmpty(this.txtVersaoAtual.Text))
+                    this.numNovaVersao.Value = int.Parse(this.txtVersaoAtual.Text);
+
                 this.txtPorta.Text = porta;
+                DbFirebird.i.strPort = porta;
                 this.ckbFecharAposUpdate.Checked = automaticClose == "1" ? true : false;
             }
-        }
-
-        private string? getVersaoAtual()
-        {
-            string strSql = @"SELECT versao.valor
-                      FROM versao
-                      WHERE versao.versaoid = 1";
-
-            DataTable tabela = DbFirebird.i.ExecutarSelect(strSql);
-
-            string? strResultado = string.Empty;
-
-            if (tabela.Rows.Count > 0)
+            else
             {
-                strResultado = tabela.Rows[0]["valor"].ToString();
-            }
+                this.txtPorta.Text = "3025";
+                DbFirebird.i.strPort = "3025";
 
-            return strResultado;
+                Conexao.i.connectionString = $@"Server=localhost;Port={this.txtPorta.Text};User=SYSDBA;Password=masterkey;Database={this.txtBanco.Text}";
+            }
         }
 
         public void SelecionarBanco()
@@ -73,6 +76,7 @@ namespace Versao
                 this.SalvarXml(caminhoBanco);
 
                 MessageBox.Show("Caminho salvo com sucesso!");
+                this.CarregarXml();
             }
         }
 
@@ -94,6 +98,23 @@ namespace Versao
                 this.Close();
         }
 
+        private string? getVersaoAtual()
+        {
+            string strSql = @"SELECT versao.valor
+                      FROM versao
+                      WHERE versao.versaoid = 1";
+
+            DataTable tabela = DbFirebird.i.ExecutarSelect(strSql);
+
+            string? strResultado = string.Empty;
+
+            if (tabela.Rows.Count > 0)
+            {
+                strResultado = tabela.Rows[0]["valor"].ToString();
+            }
+
+            return strResultado;
+        }
         private void SalvarXml(string caminhoBanco)
         {
             XElement xml = new XElement("Configuracao",
@@ -122,6 +143,18 @@ namespace Versao
             }
         }
 
+        private void btnFechar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void btnSelecionarbanco_Click(object sender, EventArgs e)
         {
             try
@@ -133,25 +166,11 @@ namespace Versao
                 MessageBox.Show(ex.Message);
             }
         }
-
-        private void btnFechar_Click(object sender, EventArgs e)
-        {
-
-            try
-            {
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        #endregion Eventos
-
         private void ckbFecharAposUpdate_CheckStateChanged(object sender, EventArgs e)
         {
             this.SalvarXml(this.txtBanco.Text);
         }
+
+        #endregion Eventos
     }
 }

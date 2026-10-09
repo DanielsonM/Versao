@@ -6,6 +6,8 @@ namespace Versao.Data
 {
     internal class DbFirebird
     {
+        public string? strPort { get; set; }
+
         private static DbFirebird? _i;
 
         public static DbFirebird i
